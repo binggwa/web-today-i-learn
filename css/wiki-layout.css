@@ -117,6 +117,54 @@ main {
   border-radius: 4px;
 }
 
+/* 각각의 이미지 액자 (기준점) */
+.gallery-item {
+  position: relative; /* 💡핵심: 설명글이 도망가지 않게 기준을 잡아줌 */
+  margin: 0;
+  aspect-ratio: 1 / 1; /* 액자를 무조건 정사각형으로 고정 */
+  border-radius: 4px;
+  overflow: hidden; /* 액자 밖으로 삐져나가는 것들은 잘라내서 숨김 */
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 사진이 찌그러지지 않고 액자에 꽉 차게 */
+  display: block;
+  transition: transform 0.3s ease; /* 확대 애니메이션 */
+}
+
+/* 이미지 설명 (기본 상태: 투명하게 숨김) */
+.gallery-item figcaption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 24px 12px 12px;
+  /* 아래에서 위로 자연스럽게 어두워지는 배경 */
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-align: center;
+  box-sizing: border-box;
+  
+  /* 💡애니메이션 설정: 처음엔 투명(0)하게, 살짝 아래로 내려둔 상태 */
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+/* 마우스를 올렸을 때(Hover)의 변화 */
+.gallery-item:hover img {
+  transform: scale(1.05); /* 이미지가 살짝 커짐 */
+}
+
+.gallery-item:hover figcaption {
+  opacity: 1; /* 투명했던 글자가 선명해짐 */
+  transform: translateY(0); /* 아래로 내려갔던 글자가 제자리로 올라옴 */
+}
+
 /* 인생 작품 카드 */
 .works-list {
   display: flex;
